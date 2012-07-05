@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "play_asia"
   gem.require_paths = ["lib"]
   gem.version       = PlayAsia::VERSION
+  
+  gem.add_runtime_dependency 'nokogiri'
 end
