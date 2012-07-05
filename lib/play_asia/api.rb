@@ -1,0 +1,2 @@
+class PlayAsia::API
+end
