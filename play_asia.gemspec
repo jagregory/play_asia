@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = PlayAsia::VERSION
   
   gem.add_runtime_dependency 'nokogiri'
+  gem.add_development_dependency 'minitest-reporters'
 end

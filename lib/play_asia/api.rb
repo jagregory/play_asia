@@ -1,23 +1,22 @@
-require 'open-uri'
 require 'nokogiri'
 
-class PlayAsia::API
+class PlayAsia::Api
   attr_accessor :endpoint
   attr_accessor :headers
+  attr_accessor :http_client
 
   def initialize(opts = {})
     @opts = opts
     @endpoint = 'http://www.play-asia.com/__api__.php'
+    @http_client = PlayAsia::HttpClient.new
   end
 
   def query(opts = {})
     opts = @opts.merge opts
     url = build_url @endpoint, opts
     headers = @headers || {}
-  
-    open url, *headers do |f|
-      PlayAsia::Response.new f.read
-    end
+
+    PlayAsia::Response.new @http_client.request(url, headers).read
   end
   
   private
