@@ -22,7 +22,7 @@ class PlayAsia::Api
     genre: 'g',
     version: 'v',
     encoding: 'e',
-    compatibility: 'c'
+    compatible: 'c'
   }
 
   TYPES = {
@@ -322,7 +322,7 @@ class PlayAsia::Api
     opts[:mask] = map_array_to_string opts[:mask], MASK if opts[:mask]
     opts[:type] = map_array_to_string opts[:type], TYPES, ',' if opts[:type]
     opts[:genre] = map_array_to_string opts[:genre], GENRES, ',' if opts[:genre]
-    opts[:compatibility] = map_array_to_string opts[:compatibility], COMPATIBILITIES, ',' if opts[:compatibility]
+    opts[:compatible] = map_array_to_string opts[:compatible], COMPATIBILITIES, ',' if opts[:compatible]
     opts[:encoding] = map_array_to_string opts[:encoding], ENCODINGS, ',' if opts[:encoding]
     opts[:version] = map_array_to_string opts[:version], VERSIONS, ',' if opts[:version]
 

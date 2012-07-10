@@ -9,7 +9,7 @@ class ApiListingTest < MiniTest::Unit::TestCase
   def test_should_map_mask_array_to_string
     api = api_with_stubbed_query
     api.listing mask: [:price, :barcodes, :manufacturer_codes, :sale_info, :release_date, :name, :image,
-                       :url, :affiliate_url, :genre, :version, :encoding, :compatibility]
+                       :url, :affiliate_url, :genre, :version, :encoding, :compatible]
 
     assert_equal 'pjmsrnilagvec', api.queried_options[:mask]
   end
@@ -49,14 +49,14 @@ class ApiListingTest < MiniTest::Unit::TestCase
     assert_equal 'string', api.queried_options[:genre]
   end
 
-  def test_should_map_compatibility_array_to_csv_of_integers
+  def test_should_map_compatible_array_to_csv_of_integers
     api = api_with_stubbed_query
-    api.listing compatibility: [:dreamcast, :ipad]
+    api.listing compatible: [:dreamcast, :ipad]
 
-    assert_equal '9,111', api.queried_options[:compatibility]
+    assert_equal '9,111', api.queried_options[:compatible]
   end
 
-  def test_should_use_string_for_compatibility_if_given
+  def test_should_use_string_for_compatible_if_given
     api = api_with_stubbed_query
     api.listing compatibility: 'string'
 
