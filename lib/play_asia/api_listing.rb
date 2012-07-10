@@ -331,6 +331,16 @@ class PlayAsia::Api
     opts[:compatibility] = map_array_to_string opts[:compatibility], COMPATIBILITIES, ','
     opts[:encoding] = map_array_to_string opts[:encoding], ENCODINGS, ','
     opts[:version] = map_array_to_string opts[:version], VERSIONS, ','
+
+    # map true/false literals to 1/0
+    opts.each do |key, value|
+      if value == true
+        opts[key] = '1'
+      elsif value == false
+        opts[key] = '0'
+      end
+    end
+
     opts
   end
 

@@ -91,6 +91,27 @@ class ApiTest < MiniTest::Unit::TestCase
     assert_equal 'string', api.queried_options[:version]
   end
 
+  def test_should_map_skip_preowned_boolean_true_to_1
+    api = api_with_stubbed_query
+    api.listing skip_preowned: true
+
+    assert_equal '1', api.queried_options[:skip_preowned]
+  end
+
+  def test_should_map_skip_preowned_boolean_false_to_0
+    api = api_with_stubbed_query
+    api.listing skip_preowned: false
+
+    assert_equal '0', api.queried_options[:skip_preowned]
+  end
+
+  def test_should_allow_string_for_skip_preowned
+    api = api_with_stubbed_query
+    api.listing skip_preowned: 'yes'
+
+    assert_equal 'yes', api.queried_options[:skip_preowned]
+  end
+
   private
   def api_with_stubbed_query
     api = PlayAsia::Api.new
