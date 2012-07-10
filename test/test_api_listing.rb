@@ -77,6 +77,20 @@ class ApiTest < MiniTest::Unit::TestCase
     assert_equal 'string', api.queried_options[:encoding]
   end
 
+  def test_should_map_version_array_to_csv_of_integers
+    api = api_with_stubbed_query
+    api.listing version: [:asia, :hong_kong]
+
+    assert_equal '6,19', api.queried_options[:version]
+  end
+
+  def test_should_use_version_for_encoding_if_given
+    api = api_with_stubbed_query
+    api.listing version: 'string'
+
+    assert_equal 'string', api.queried_options[:version]
+  end
+
   private
   def api_with_stubbed_query
     api = PlayAsia::Api.new

@@ -314,6 +314,15 @@ class PlayAsia::Api
     vcd_region_free: 12,
     vhs_region_free: 15
   }
+
+  VERSIONS = {
+    asia: 6,
+    european: 5,
+    hong_kong: 19,
+    japanese: 2,
+    korean: 3,
+    us: 4
+  }
   
   def process_friendly_keys opts
     opts[:mask] = map_array_to_string opts[:mask], MASK
@@ -321,6 +330,7 @@ class PlayAsia::Api
     opts[:genre] = map_array_to_string opts[:genre], GENRES, ','
     opts[:compatibility] = map_array_to_string opts[:compatibility], COMPATIBILITIES, ','
     opts[:encoding] = map_array_to_string opts[:encoding], ENCODINGS, ','
+    opts[:version] = map_array_to_string opts[:version], VERSIONS, ','
     opts
   end
 
