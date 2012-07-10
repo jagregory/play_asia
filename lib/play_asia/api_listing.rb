@@ -30,11 +30,28 @@ class PlayAsia::Api
     encoding: 'e',
     compatibility: 'c'
   }
+
+  TYPES = {
+    accessory: 2,
+    cd: 3,
+    groceries: 7,
+    apparel: 8,
+    electronics: 9,
+    movie: 4,
+    book: 6,
+    game: 1,
+    toy: 5
+  }
   
   def process_friendly_keys opts
     if opts[:mask] && opts[:mask].is_a?(Array)
       opts[:mask] = opts[:mask].map { |k| MASK[k] || k }.join
     end
+
+    if opts[:type] && opts[:type].is_a?(Array)
+      opts[:type] = opts[:type].map { |k| TYPES[k] || k }.join ','
+    end
+    
     opts
   end
 end
