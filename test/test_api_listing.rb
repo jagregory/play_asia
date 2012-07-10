@@ -49,6 +49,20 @@ class ApiTest < MiniTest::Unit::TestCase
     assert_equal 'string', api.queried_options[:genre]
   end
 
+  def test_should_map_compatibility_array_to_csv_of_integers
+    api = api_with_stubbed_query
+    api.listing compatibility: [:dreamcast, :ipad]
+
+    assert_equal '9,111', api.queried_options[:compatibility]
+  end
+
+  def test_should_use_string_for_compatibility_if_given
+    api = api_with_stubbed_query
+    api.listing compatibility: 'string'
+
+    assert_equal 'string', api.queried_options[:compatibility]
+  end
+
   private
   def api_with_stubbed_query
     api = PlayAsia::Api.new
