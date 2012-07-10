@@ -4,14 +4,8 @@ class PlayAsia::Api
     response = query opts
     
     raise "Query error: '#{response.error_message}'" if response.error?
-    
-    response.content.search('item').map do |xml|
-      item = {}
-      xml.search('*').each do |node|
-        item[node.name.to_sym] = node.text
-      end
-      item
-    end
+
+    response
   end
   
   private

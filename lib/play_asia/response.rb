@@ -1,6 +1,5 @@
 class PlayAsia::Response
-  attr_accessor :raw_text
-  attr_reader :status
+  attr_reader :raw_text, :status, :items, :content
 
   def initialize(text)
     @raw_text = text
@@ -9,32 +8,36 @@ class PlayAsia::Response
     parse_content
   end
 
-  def content
-    @parsed.at 'content'
-  end
-
   def error?
-    status[:error] || false
+    status[:error] != '0'
   end
 
   def error_message
     status[:errorstring]
   end
 
-  def query
-    status[:query]
-  end
-
   private
   def parse_content
     @status = parse_status
+    @content = @parsed.at 'content'
+    @items = parse_items
   end
 
   def parse_status
-    {
-      query: @parsed.at('status/query').text.to_sym,
-      error: @parsed.at('status/error').text != '0',
-      errorstring: @parsed.at('status/errorstring').text,
-    }
+    dumb_xml_to_hash @parsed.at('status')
+  end
+
+  def parse_items
+    content.search('item').map do |xml|
+      dumb_xml_to_hash xml
+    end
+  end
+
+  def dumb_xml_to_hash(xml)
+    hash = {}
+    xml.search('*').each do |node|
+      hash[node.name.downcase.to_sym] = node.text
+    end
+    hash
   end
 end
