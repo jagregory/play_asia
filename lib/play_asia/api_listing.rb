@@ -1,4 +1,4 @@
-class PlayAsia::API
+class PlayAsia::Api
   def listing(opts = {})
     opts = process_friendly_keys opts.merge({ query: :listing })
     response = query opts
