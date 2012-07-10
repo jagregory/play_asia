@@ -16,6 +16,19 @@ class PlayAsia::Response
     status[:errorstring]
   end
 
+  def total_items
+    status[:total_items] ? status[:total_items].to_i : nil
+  end
+
+  def has_more?
+    raise "Unknown total number of items" if total_items.nil?
+    items.size < total_items
+  end
+
+  def complete?
+    !has_more?
+  end
+
   private
   def parse_content
     @status = parse_status
