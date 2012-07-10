@@ -112,6 +112,15 @@ class ApiTest < MiniTest::Unit::TestCase
     assert_equal 'yes', api.queried_options[:skip_preowned]
   end
 
+  def test_should_only_use_supplied_parameters_and_query
+    api = api_with_stubbed_query
+    api.listing type: [:game], mask: [:name]
+
+    refute_nil api.queried_options[:type]
+    refute_nil api.queried_options[:mask]
+    assert_equal [:type, :mask, :query], api.queried_options.keys
+  end
+
   private
   def api_with_stubbed_query
     api = PlayAsia::Api.new

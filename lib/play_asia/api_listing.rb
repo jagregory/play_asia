@@ -325,12 +325,12 @@ class PlayAsia::Api
   }
   
   def process_friendly_keys opts
-    opts[:mask] = map_array_to_string opts[:mask], MASK
-    opts[:type] = map_array_to_string opts[:type], TYPES, ','
-    opts[:genre] = map_array_to_string opts[:genre], GENRES, ','
-    opts[:compatibility] = map_array_to_string opts[:compatibility], COMPATIBILITIES, ','
-    opts[:encoding] = map_array_to_string opts[:encoding], ENCODINGS, ','
-    opts[:version] = map_array_to_string opts[:version], VERSIONS, ','
+    opts[:mask] = map_array_to_string opts[:mask], MASK if opts[:mask]
+    opts[:type] = map_array_to_string opts[:type], TYPES, ',' if opts[:type]
+    opts[:genre] = map_array_to_string opts[:genre], GENRES, ',' if opts[:genre]
+    opts[:compatibility] = map_array_to_string opts[:compatibility], COMPATIBILITIES, ',' if opts[:compatibility]
+    opts[:encoding] = map_array_to_string opts[:encoding], ENCODINGS, ',' if opts[:encoding]
+    opts[:version] = map_array_to_string opts[:version], VERSIONS, ',' if opts[:version]
 
     # map true/false literals to 1/0
     opts.each do |key, value|
