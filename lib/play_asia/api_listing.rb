@@ -281,18 +281,52 @@ class PlayAsia::Api
     xbox360: 38,
     xbox: 6
   }
+
+  ENCODINGS = {
+    aac: 31,
+    audio_cd: 14,
+    blu_ray_region_a: 27,
+    blu_ray_region_b: 28,
+    blu_ray_region_free: 29,
+    dvd_region_1: 6,
+    dvd_region_2: 7,
+    dvd_region_3: 8,
+    dvd_region_4: 9,
+    dvd_region_5: 10,
+    dvd_region_6: 11,
+    dvd_region_free: 5,
+    hd_dvd_region_2: 24,
+    hd_dvd_region_3: 25,
+    hd_dvd_region_free: 26,
+    no_region_protection: 13,
+    ntsc_j: 2,
+    ntsc_uc: 3,
+    pal: 4,
+    record: 30,
+    umd_music_region_2: 17,
+    umd_music_region_3: 23,
+    umd_music_region_free: 22,
+    umd_video_region_1: 20,
+    umd_video_region_2: 16,
+    umd_video_region_2_6: 21,
+    umd_video_region_3: 19,
+    umd_video_region_free: 18,
+    vcd_region_free: 12,
+    vhs_region_free: 15
+  }
   
   def process_friendly_keys opts
     opts[:mask] = map_array_to_string opts[:mask], MASK
     opts[:type] = map_array_to_string opts[:type], TYPES, ','
     opts[:genre] = map_array_to_string opts[:genre], GENRES, ','
     opts[:compatibility] = map_array_to_string opts[:compatibility], COMPATIBILITIES, ','
+    opts[:encoding] = map_array_to_string opts[:encoding], ENCODINGS, ','
     opts
   end
 
   def map_array_to_string(values, map, join_string = nil)
     if values && values.is_a?(Array)
-      return values.map { |k| map[k] || k }.join join_string
+      return values.flatten.map { |k| map[k] || k }.join join_string
     end
     values
   end

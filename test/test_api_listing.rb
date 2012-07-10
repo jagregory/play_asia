@@ -63,6 +63,20 @@ class ApiTest < MiniTest::Unit::TestCase
     assert_equal 'string', api.queried_options[:compatibility]
   end
 
+  def test_should_map_encoding_array_to_csv_of_integers
+    api = api_with_stubbed_query
+    api.listing encoding: [:pal, :aac]
+
+    assert_equal '4,31', api.queried_options[:encoding]
+  end
+
+  def test_should_use_string_for_encoding_if_given
+    api = api_with_stubbed_query
+    api.listing encoding: 'string'
+
+    assert_equal 'string', api.queried_options[:encoding]
+  end
+
   private
   def api_with_stubbed_query
     api = PlayAsia::Api.new
