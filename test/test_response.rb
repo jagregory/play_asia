@@ -22,6 +22,16 @@ class ResponseTest < MiniTest::Unit::TestCase
     assert ok_response_with_all_items.complete?
   end
 
+  def test_have_more_should_be_true_if_number_of_items_is_less_than_total_items_with_start_offset
+    assert ok_response_with_paged_items_page_two.has_more?
+    refute ok_response_with_paged_items_page_two.complete?
+  end
+
+  def test_have_more_should_be_false_if_number_of_items_is_greater_or_equal_to_total_items_with_start_offset
+    refute ok_response_with_paged_items_page_three.has_more?
+    assert ok_response_with_paged_items_page_three.complete?
+  end
+
   private
   def error_response
     PlayAsia::Response.new '<message><status><error>1</error></status><content /></message>'
@@ -37,11 +47,47 @@ class ResponseTest < MiniTest::Unit::TestCase
   <status>
     <error>0</error>
     <errorstring />
-    <total_items>2</total_items>
+    <total_items>3</total_items>
   </status>
   <content>
     <item>
       <name>one</name>
+    </item>
+  </content>
+</message>
+RESPONSE
+  end
+
+  def ok_response_with_paged_items_page_two
+    PlayAsia::Response.new <<RESPONSE
+<message>
+  <status>
+    <error>0</error>
+    <errorstring />
+    <start>1</start>
+    <total_items>3</total_items>
+  </status>
+  <content>
+    <item>
+      <name>two</name>
+    </item>
+  </content>
+</message>
+RESPONSE
+  end
+
+  def ok_response_with_paged_items_page_three
+    PlayAsia::Response.new <<RESPONSE
+<message>
+  <status>
+    <error>0</error>
+    <errorstring />
+    <start>2</start>
+    <total_items>3</total_items>
+  </status>
+  <content>
+    <item>
+      <name>three</name>
     </item>
   </content>
 </message>
