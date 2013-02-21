@@ -3,7 +3,7 @@ require 'play_asia'
 require_relative 'stubs/stubbed_http_client'
 
 class ApiTest < MiniTest::Unit::TestCase
-  STUBBED_RESPONSE = '<message><status><query>test</query><error>0</error><errorstring /></status><content><test>1</test></content></message>'
+  STUBBED_RESPONSE = '<message><status><query>test</query><error>0</error><errorstring /><items>1</items></status><content><item>1</item></content></message>'
 
   def setup
     @api = PlayAsia::Api.new

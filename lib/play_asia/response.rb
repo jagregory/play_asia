@@ -46,8 +46,8 @@ class PlayAsia::Response
     @content = @parsed.at 'content'
     @items = parse_items
 
-    raise PlayAsia::ResponseError, "status/items not found.\n#{status}" unless items_count
-    raise PlayAsia::ResponseError, "Unexpected number of items #{@items.size} instead of #{items_count}" if @items.size < items_count
+    raise PlayAsia::ResponseError, "status/items not found.\n#{status}" unless items_count || error?
+    raise PlayAsia::ResponseError, "Unexpected number of items #{@items.size} instead of #{items_count}" if !error? && @items.size < items_count
   end
 
   def parse_status

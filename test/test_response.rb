@@ -48,6 +48,7 @@ class ResponseTest < MiniTest::Unit::TestCase
     <error>0</error>
     <errorstring />
     <total_items>3</total_items>
+    <items>1</items>
   </status>
   <content>
     <item>
@@ -66,6 +67,7 @@ RESPONSE
     <errorstring />
     <start>1</start>
     <total_items>3</total_items>
+    <items>1</items>
   </status>
   <content>
     <item>
@@ -84,6 +86,7 @@ RESPONSE
     <errorstring />
     <start>2</start>
     <total_items>3</total_items>
+    <items>1</items>
   </status>
   <content>
     <item>
@@ -101,6 +104,7 @@ RESPONSE
     <error>0</error>
     <errorstring />
     <total_items>2</total_items>
+    <items>2</items>
   </status>
   <content>
     <item>

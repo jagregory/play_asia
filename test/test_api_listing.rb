@@ -4,7 +4,7 @@ require 'minitest/mock'
 require_relative 'stubs/stubbed_http_client'
 
 class ApiListingTest < MiniTest::Unit::TestCase
-  OK_RESPONSE = PlayAsia::Response.new '<message><status><query>test</query><error>0</error><errorstring /></status><content><test>1</test></content></message>'
+  OK_RESPONSE = PlayAsia::Response.new '<message><status><query>test</query><error>0</error><errorstring /><items>1</items></status><content><item>1</item></content></message>'
 
   def test_should_map_mask_array_to_string
     api = api_with_stubbed_query
