@@ -1,6 +1,6 @@
 # PlayAsia
 
-TODO: Write a gem description
+A thin wrapper around the [Play Asia](http://www.play-asia.com) API.
 
 ## Installation
 
@@ -18,7 +18,11 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+    api = PlayAsia::Api.new
+      key: # your API key,
+      user: # your API user,
+      
+    api.listing mask: [:price, :name], type: [:game]
 
 ## Contributing
 
