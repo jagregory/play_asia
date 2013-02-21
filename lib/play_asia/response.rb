@@ -1,3 +1,6 @@
+class PlayAsia::ResponseError < RuntimeError
+end
+
 class PlayAsia::Response
   attr_reader :raw_text, :status, :items, :content
 
@@ -24,6 +27,10 @@ class PlayAsia::Response
     status[:total_items] ? status[:total_items].to_i : nil
   end
 
+  def items_count
+    status[:items] ? status[:items].to_i : nil
+  end
+
   def has_more?
     raise "Unknown total number of items" if total_items.nil?
     start + items.size < total_items
@@ -38,6 +45,9 @@ class PlayAsia::Response
     @status = parse_status
     @content = @parsed.at 'content'
     @items = parse_items
+
+    raise PlayAsia::ResponseError, "status/items not found.\n#{status}" unless items_count
+    raise PlayAsia::ResponseError, "Unexpected number of items #{@items.size} instead of #{items_count}" if @items.size < items_count
   end
 
   def parse_status
