@@ -8,19 +8,20 @@ class ApiTest < MiniTest::Unit::TestCase
   def setup
     @api = PlayAsia::Api.new
     @http_client = StubbedHttpClient.new STUBBED_RESPONSE
-    @api.http_client = @http_client
+    def @api.http_client
+      @http_client
+    end
   end
 
   def test_query_defaults_to_using_play_asia_domain
-    @api.query key: 'api_key', user: 1, query: 'test'
+    query = @api.query(key: 'api_key', user: 1, query: 'test')
 
-    assert @http_client.last_url.start_with? 'http://www.play-asia.com/__api__.php'
+    assert query.url.start_with? 'http://www.play-asia.com/__api__.php'
   end
 
   def test_query_uses_arguments_as_query_string
-    @api.query key: 'api_key', user: 1, query: 'test', a: 1, b: 2, c: 3
-    url = @http_client.last_url
-    query_string = parse_hash_from_query_string url.split('?').last
+    query = @api.query(key: 'api_key', user: 1, query: 'test', a: 1, b: 2, c: 3)
+    query_string = parse_hash_from_query_string query.url.split('?').last
 
     assert_equal query_string['key'], 'api_key'
     assert_equal query_string['user'], '1'

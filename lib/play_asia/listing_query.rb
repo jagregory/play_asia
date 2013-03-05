@@ -1,13 +1,4 @@
-class PlayAsia::Api
-  def listing(opts = {})
-    opts = process_friendly_keys opts.merge({ query: :listing })
-    response = query opts
-    
-    raise "Query error: '#{response.error_message}'" if response.error?
-
-    response
-  end
-  
+class PlayAsia::ListingQuery < PlayAsia::Query
   private
   MASK = {
     price: 'p',
@@ -318,7 +309,8 @@ class PlayAsia::Api
     us: 4
   }
   
-  def process_friendly_keys opts
+  def prepare_opts(opts)
+    opts[:query] = :listing
     opts[:mask] = map_array_to_string opts[:mask], MASK if opts[:mask]
     opts[:type] = map_array_to_string opts[:type], TYPES, ',' if opts[:type]
     opts[:genre] = map_array_to_string opts[:genre], GENRES, ',' if opts[:genre]

@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 class PlayAsia::ResponseError < RuntimeError
 end
 

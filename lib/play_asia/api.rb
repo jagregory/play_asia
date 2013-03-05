@@ -1,35 +1,25 @@
-require 'nokogiri'
-
 class PlayAsia::Api
-  attr_accessor :endpoint
   attr_accessor :headers
-  attr_accessor :http_client
 
   def initialize(opts = {})
     @opts = opts
-    @endpoint = 'http://www.play-asia.com/__api__.php'
     @http_client = PlayAsia::HttpClient.new
   end
 
   def query(opts = {})
-    opts = @opts.merge opts
-    url = build_url @endpoint, opts
-    headers = @headers || {}
-
-    PlayAsia::Response.new @http_client.request(url, headers).read
+    query = PlayAsia::Query.new http_client
+    query.build(@headers || {}, @opts.merge(opts))
+    query
   end
-  
+
+  def listing(opts = {})
+    query = PlayAsia::ListingQuery.new http_client
+    query.build(@headers || {}, @opts.merge(opts))
+    query
+  end
+
   private
-  def build_url(endpoint, opts)
-    ensure_required_parameters opts
-  
-    params = opts.map { |k,v| "#{k}=#{v}" }.join '&'
-    "#{endpoint}?#{params}"
-  end
-
-  def ensure_required_parameters opts
-    raise ArgumentError, 'Missing API key (expected :key)' unless opts[:key]
-    raise ArgumentError, 'Missing User ID (expected :user)' unless opts[:user]
-    raise ArgumentError, 'Missing Query type (expected :query)' unless opts[:query]
+  def http_client
+    @http_client
   end
 end
