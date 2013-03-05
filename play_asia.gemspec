@@ -9,6 +9,7 @@ Gem::Specification.new do |gem|
   gem.homepage      = 'http://www.onthegame.com.au/about/opensource'
   
   gem.add_runtime_dependency 'nokogiri'
+  gem.add_development_dependency 'rake'
   gem.add_development_dependency 'minitest-reporters'
 
   gem.files         = `git ls-files`.split($\)
