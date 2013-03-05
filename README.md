@@ -20,9 +20,13 @@ Or install it yourself as:
 
     api = PlayAsia::Api.new
       key: # your API key,
-      user: # your API user,
+      user: # your API user
       
-    api.listing mask: [:price, :name], type: [:game]
+    api.listing(mask: [:price, :name], type: [:game]).exec
+    # => PlayAsia::Response
+
+    api.listing(mask: [:price, :name], type: [:game]).url
+    # => http://www.play-asia.com/__api__.php?...
 
 ## Contributing
 
